@@ -1,0 +1,68 @@
+import 'package:whisky_app/models/bottle_model.dart';
+
+final List<BottleModel> mockBottleList = [
+  BottleModel(
+    id: 1,
+    distillery: "Springbank",
+    caskNumber: "1234",
+    available: 20,
+    total: 100,
+    filled: "1995",
+  ),
+  BottleModel(
+    id: 2,
+    distillery: "Macallan",
+    caskNumber: "5678",
+    available: 15,
+    total: 80,
+    filled: "2002",
+  ),
+  BottleModel(
+    id: 3,
+    distillery: "Lagavulin",
+    caskNumber: "7890",
+    available: 10,
+    total: 60,
+    filled: "2004",
+  ),
+  BottleModel(
+    id: 4,
+    distillery: "Ardbeg",
+    caskNumber: "1357",
+    available: 12,
+    total: 75,
+    filled: "2005",
+  ),
+  BottleModel(
+    id: 5,
+    distillery: "GlenDronach",
+    caskNumber: "2468",
+    available: 18,
+    total: 90,
+    filled: "1999",
+  ),
+  BottleModel(
+    id: 6,
+    distillery: "Laphroaig",
+    caskNumber: "2468",
+    available: 22,
+    total: 110,
+    filled: "2010",
+  ),
+  BottleModel(
+    id: 7,
+    distillery: "Balvenie",
+    caskNumber: "1357",
+    available: 8,
+    total: 50,
+    filled: "1998",
+  ),
+  BottleModel(
+    id: 8,
+    distillery: "Highland Park",
+    caskNumber: "1357",
+    available: 5,
+    total: 40,
+    filled: "2002",
+  ),
+];

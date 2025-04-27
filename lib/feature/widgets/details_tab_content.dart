@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:whisky_app/core/utils/theme.dart';
+import 'package:whisky_app/core/theme/theme.dart';
 
 class DetailsTabContent extends StatelessWidget {
   const DetailsTabContent({super.key});

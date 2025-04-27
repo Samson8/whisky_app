@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:whisky_app/core/utils/theme.dart';
+import 'package:whisky_app/core/theme/theme.dart';
 import 'package:whisky_app/feature/home/presentation/collection_screen.dart';
 
 class SignInScreen extends StatefulWidget {

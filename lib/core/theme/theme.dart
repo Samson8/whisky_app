@@ -3,12 +3,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   static const Color primaryColor = Color(0xFFD4A017);
-  static const Color backgroundColor = Color(0xFF0B1519);
-  static const Color cardBackgroundColor = Color(0xFF213745);
+  static const Color backgroundColor = Color(0xFF0E1C21);
+  static const Color cardBackgroundColor = Color(0xFF122329);
   static const Color textColor = Colors.white;
   static const Color error = Color(0xFFFF1F0B);
   static const Color subtleTextColor = Colors.white70;
   static const Color hintTextColor = Colors.white54;
+  static const Color grey = Color(0xFF899194);
 
   static final TextStyle headline1 = GoogleFonts.ebGaramond(
     fontSize: 32,
@@ -145,8 +146,8 @@ class AppTheme {
 
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: cardBackgroundColor,
-      selectedItemColor: primaryColor,
-      unselectedItemColor: subtleTextColor,
+      selectedItemColor: textColor,
+      unselectedItemColor: grey,
       type: BottomNavigationBarType.fixed,
       // Apply font to BottomNavBar labels
       selectedLabelStyle:

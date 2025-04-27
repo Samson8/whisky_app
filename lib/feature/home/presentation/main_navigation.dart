@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:whisky_app/core/utils/theme.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:whisky_app/core/theme/theme.dart';
 import 'package:whisky_app/feature/home/presentation/collection_screen.dart';
+import 'package:whisky_app/feature/home/presentation/provider/collection_provider.dart';
 
 class EmptyScreen extends StatelessWidget {
   final String title;
@@ -50,30 +53,48 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.qr_code_scanner),
-            label: 'Scan',
+    return BlocProvider(
+        create: (_) => CollectionProvider()..add(LoadCollections()),
+        child: Scaffold(
+          body: _pages[_selectedIndex],
+          bottomNavigationBar: BottomNavigationBar(
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  "assets/icons/scan_icon.svg",
+                  color:
+                      _selectedIndex == 0 ? AppTheme.textColor : AppTheme.grey,
+                ),
+                label: 'Scan',
+              ),
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  "assets/icons/squares_icon.svg",
+                  color:
+                      _selectedIndex == 1 ? AppTheme.textColor : AppTheme.grey,
+                ),
+                label: 'Collection',
+              ),
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  "assets/icons/bottle_icon.svg",
+                  color:
+                      _selectedIndex == 2 ? AppTheme.textColor : AppTheme.grey,
+                ),
+                label: 'Shop',
+              ),
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  "assets/icons/gear_icon.svg",
+                  color:
+                      _selectedIndex == 3 ? AppTheme.textColor : AppTheme.grey,
+                ),
+                label: 'Settings',
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.grid_view_rounded), // Or Icons.collections
-            label: 'Collection',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.storefront_outlined), // Or Icons.shopping_bag
-            label: 'Shop',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings_outlined),
-            label: 'Settings',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
-    );
+        ));
   }
 }

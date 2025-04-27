@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:whisky_app/core/utils/theme.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:whisky_app/core/theme/theme.dart';
+import 'package:whisky_app/core/utils/bloc_resourse.dart';
 import 'package:whisky_app/feature/home/presentation/bottle_details_screen.dart';
+import 'package:whisky_app/feature/home/presentation/provider/collection_provider.dart';
 import 'package:whisky_app/feature/widgets/bottle_grid_item.dart';
+import 'package:whisky_app/models/bottle_model.dart';
 
 class MyCollectionScreen extends StatefulWidget {
   static const routeName = '/my-collection';
@@ -15,15 +19,7 @@ class MyCollectionScreen extends StatefulWidget {
 
 class _MyCollectionScreenState extends State<MyCollectionScreen> {
   TextEditingController searchController = TextEditingController();
-  final List<Map<String, String>> _collectionItems = List.generate(
-    10, // Example: 10 items
-    (index) => {
-      'name': 'Springbank 199$index #${1234 + index}',
-      'details': '(112/158)',
-      'image':
-          'assets/images/bottle.png' // Use your placeholder or actual images
-    },
-  );
+  List<BottleModel> filteredList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +69,7 @@ class _MyCollectionScreenState extends State<MyCollectionScreen> {
             CupertinoSearchTextField(
               placeholder: "Search",
               controller: searchController,
+              backgroundColor: AppTheme.cardBackgroundColor,
               onSuffixTap: () {
                 searchController.clear();
               },
@@ -84,25 +81,43 @@ class _MyCollectionScreenState extends State<MyCollectionScreen> {
         ),
         backgroundColor: AppTheme.backgroundColor, // Match background
       ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(16.0),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, // Number of columns
-          crossAxisSpacing: 16.0, // Horizontal space between items
-          mainAxisSpacing: 16.0, // Vertical space between items
-          childAspectRatio: 0.65, // Adjust aspect ratio (width / height)
-        ),
-        itemCount: _collectionItems.length,
-        itemBuilder: (context, index) {
-          final item = _collectionItems[index];
-          return BottleGridItem(
-            imageUrl: item['image']!,
-            name: item['name']!,
-            details: item['details']!,
-            onTap: () {
-              Navigator.pushNamed(context, BottleDetailScreen.routeName);
-            },
-          );
+      body: BlocBuilder<CollectionProvider, AppState>(
+        builder: (context, state) {
+          if (state is AppLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is AppLoaded) {
+            return GridView.builder(
+              padding: const EdgeInsets.all(16.0),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, // Number of columns
+                crossAxisSpacing: 2.0, // Horizontal space between items
+                mainAxisSpacing: 2.0, // Vertical space between items
+                childAspectRatio: 0.5, // Adjust aspect ratio (width / height)
+              ),
+              itemCount: filteredList.isNotEmpty
+                  ? filteredList.length
+                  : state.data.length,
+              itemBuilder: (context, index) {
+                final item = filteredList.isNotEmpty
+                    ? filteredList[index]
+                    : state.data[index] as BottleModel?;
+                return BottleGridItem(
+                  bottleItem: item!,
+                  onTap: () {
+                    Navigator.pushNamed(context, BottleDetailScreen.routeName);
+                  },
+                );
+              },
+            );
+          } else if (state is AppError) {
+            return Center(
+              child: Text(
+                'Error: ${state.message}',
+                style: textTheme.bodyLarge,
+              ),
+            );
+          }
+          return const SizedBox.shrink(); // Fallback for other states
         },
       ),
     );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:whisky_app/core/utils/theme.dart';
+import 'package:whisky_app/core/theme/theme.dart';
 import 'package:whisky_app/feature/widgets/details_tab_content.dart';
 import 'package:whisky_app/feature/widgets/history_tab_content.dart';
 import 'package:whisky_app/feature/widgets/tasting_note_tab_content.dart';
@@ -72,10 +72,6 @@ class _BottleDetailScreenState extends State<BottleDetailScreen>
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text('Genesis Collection'),
-        // leading: IconButton(
-        //   icon: const Icon(Icons.close),
-        //   onPressed: () => Navigator.pop(context),
-        // ),
       ),
       body: Container(
         decoration: const BoxDecoration(

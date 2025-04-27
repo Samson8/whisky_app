@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:whisky_app/core/utils/theme.dart';
+import 'package:whisky_app/core/injections.dart';
+import 'package:whisky_app/core/theme/theme.dart';
 import 'package:whisky_app/feature/home/presentation/bottle_details_screen.dart';
 import 'package:whisky_app/feature/auth/presentation/signin_screen.dart';
 import 'package:whisky_app/feature/auth/presentation/welcome_screen.dart';
 import 'package:whisky_app/feature/home/presentation/main_navigation.dart';
 
-void main() {
+void main() async {
+  await initInjections();
   runApp(const MyApp());
 }
 
