@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.darkTheme,
       // Start with the welcome screen for this example
-      initialRoute: MainNavigationScreen.routeName,
+      initialRoute: WelcomeScreen.routeName,
       routes: {
         WelcomeScreen.routeName: (context) => const WelcomeScreen(),
         SignInScreen.routeName: (context) => const SignInScreen(),

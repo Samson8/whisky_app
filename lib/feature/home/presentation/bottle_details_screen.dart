@@ -128,7 +128,7 @@ class _BottleDetailScreenState extends State<BottleDetailScreen>
                       child: Container(
                         margin: const EdgeInsets.symmetric(horizontal: 16.0),
                         decoration: BoxDecoration(
-                          color: AppTheme.backgroundColor.withOpacity(0.8),
+                          color: AppTheme.backgroundColor,
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -174,7 +174,7 @@ class _BottleDetailScreenState extends State<BottleDetailScreen>
                     // Card with Tabs
                     Container(
                       decoration: BoxDecoration(
-                        color: AppTheme.cardBackgroundColor.withOpacity(0.8),
+                        color: AppTheme.cardBackgroundColor,
                       ),
                       margin: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Column(
@@ -224,8 +224,7 @@ class _BottleDetailScreenState extends State<BottleDetailScreen>
                             child: Container(
                               height: 32,
                               decoration: BoxDecoration(
-                                color:
-                                    AppTheme.backgroundColor.withOpacity(0.8),
+                                color: AppTheme.plainBackgroundColor,
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               margin: const EdgeInsets.only(bottom: 4.0),

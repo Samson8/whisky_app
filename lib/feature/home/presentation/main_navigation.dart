@@ -13,7 +13,7 @@ class EmptyScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
-        backgroundColor: AppTheme.backgroundColor,
+        backgroundColor: AppTheme.plainBackgroundColor,
       ),
     );
   }
@@ -52,6 +52,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     return Scaffold(
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: AppTheme.backgroundColor,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: SvgPicture.asset(

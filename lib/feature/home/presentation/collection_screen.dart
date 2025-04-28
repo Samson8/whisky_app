@@ -85,7 +85,7 @@ class _MyCollectionScreenState extends State<MyCollectionScreen> {
             // ),
           ],
         ),
-        backgroundColor: AppTheme.backgroundColor, // Match background
+        backgroundColor: AppTheme.plainBackgroundColor, // Match background
       ),
       body: BlocBuilder<CollectionBloc, AppState>(
         builder: (context, state) {

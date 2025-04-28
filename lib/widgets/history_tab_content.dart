@@ -11,7 +11,7 @@ class HistoryTabContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppTheme.backgroundColor.withOpacity(0.8),
+        color: AppTheme.plainBackgroundColor,
       ),
       margin: const EdgeInsets.all(16.0),
       child: ListView.builder(
@@ -69,9 +69,7 @@ class HistoryTimelineItem extends StatelessWidget {
               Container(
                 width: 1,
                 height: 10, // Space above circle
-                color: isFirst
-                    ? Colors.transparent
-                    : AppTheme.primaryColor.withOpacity(0.5),
+                color: isFirst ? Colors.transparent : AppTheme.primaryColor,
               ),
               // Circle indicator
               Container(
@@ -88,9 +86,7 @@ class HistoryTimelineItem extends StatelessWidget {
               Expanded(
                 child: Container(
                   width: 1,
-                  color: isLast
-                      ? Colors.transparent
-                      : AppTheme.primaryColor.withOpacity(0.5),
+                  color: isLast ? Colors.transparent : AppTheme.primaryColor,
                 ),
               ),
             ],
@@ -126,35 +122,46 @@ class HistoryTimelineItem extends StatelessWidget {
                   ),
                   if (attachments.isNotEmpty) ...[
                     // Conditionally show attachments
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        const Icon(Icons.attachment,
-                            size: 16, color: AppTheme.subtleTextColor),
-                        const SizedBox(width: 4),
-                        Text(
-                          'Attachments',
-                          style: GoogleFonts.lato().copyWith(
-                              color: AppTheme.subtleTextColor,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    // Placeholder for Attachment Thumbnails
-                    Wrap(
-                      spacing: 8.0,
-                      runSpacing: 8.0,
-                      children: List.generate(
-                          attachments.length,
-                          (i) => Container(
-                                width: 60, height: 60,
-                                color:
-                                    AppTheme.cardBackgroundColor, // Placeholder
-                                child: const Icon(Icons.image_outlined,
-                                    color: AppTheme.subtleTextColor),
-                              )),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: AppTheme.backgroundColor,
+                      ),
+                      margin: const EdgeInsets.only(top: 16.0),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(Icons.attachment,
+                                  size: 16, color: AppTheme.subtleTextColor),
+                              const SizedBox(width: 4),
+                              Text(
+                                'Attachments',
+                                style: GoogleFonts.lato().copyWith(
+                                    color: AppTheme.subtleTextColor,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          // Placeholder for Attachment Thumbnails
+                          Wrap(
+                            spacing: 8.0,
+                            runSpacing: 8.0,
+                            children: List.generate(
+                                attachments.length,
+                                (i) => Container(
+                                      width: 60, height: 60,
+                                      color: AppTheme
+                                          .cardBackgroundColor, // Placeholder
+                                      child: const Icon(Icons.image_outlined,
+                                          color: AppTheme.subtleTextColor),
+                                    )),
+                          )
+                        ],
+                      ),
                     ),
                   ]
                 ],

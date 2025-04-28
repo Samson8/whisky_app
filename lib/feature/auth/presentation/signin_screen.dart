@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whisky_app/core/theme/theme.dart';
-import 'package:whisky_app/feature/home/presentation/collection_screen.dart';
+import 'package:whisky_app/feature/home/presentation/main_navigation.dart';
 
 class SignInScreen extends StatefulWidget {
   static const routeName = '/signin';
@@ -21,7 +21,8 @@ class _SignInScreenState extends State<SignInScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppTheme.backgroundColor, // Ensure AppBar matches bg
+        backgroundColor:
+            AppTheme.plainBackgroundColor, // Ensure AppBar matches bg
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -84,7 +85,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     // TODO: Implement Sign In Logic
                     print('Continue Tapped');
                     Navigator.pushNamedAndRemoveUntil(context,
-                        MyCollectionScreen.routeName, (route) => false);
+                        MainNavigationScreen.routeName, (route) => false);
                   },
                   child: const Text('Continue'),
                 ),

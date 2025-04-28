@@ -19,7 +19,7 @@ class TastingNotesTabContent extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: AppTheme.backgroundColor.withOpacity(0.8),
+        color: AppTheme.plainBackgroundColor,
       ),
       margin: const EdgeInsets.only(bottom: 8.0),
       child: Padding(

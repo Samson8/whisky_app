@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:whisky_app/core/theme/theme.dart';
 import 'package:whisky_app/feature/auth/presentation/signin_screen.dart';
 
@@ -31,7 +32,7 @@ class WelcomeScreen extends StatelessWidget {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: AppTheme.cardBackgroundColor.withOpacity(0.8),
+                    color: AppTheme.cardBackgroundColor,
                   ),
                   padding: const EdgeInsets.all(24),
                   child: Column(
@@ -44,7 +45,10 @@ class WelcomeScreen extends StatelessWidget {
                       const SizedBox(height: 16),
                       Text(
                         'Scan your bottle to get started',
-                        style: textTheme.bodyLarge,
+                        style: GoogleFonts.lato().copyWith(
+                            color: AppTheme.subtleTextColor,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 40),
@@ -61,10 +65,11 @@ class WelcomeScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            'Have an account? ',
-                            style: textTheme.bodyMedium,
-                          ),
+                          Text('Have an account? ',
+                              style: GoogleFonts.lato().copyWith(
+                                  color: AppTheme.textColor,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400)),
                           TextButton(
                             onPressed: () {
                               Navigator.pushNamed(
