@@ -1,19 +1,31 @@
 class TastingNote {
-  final String userNote;
+  final String? userName;
+  final String? noseRemark;
+  final String? palateRemark;
+  final String? finishRemark;
 
   TastingNote({
-    required this.userNote,
+    this.userName,
+    this.noseRemark,
+    this.palateRemark,
+    this.finishRemark,
   });
 
-  factory TastingNote.fromJson(Map<String, dynamic> json) {
+  factory TastingNote.fromJson(Map<String, dynamic>? json) {
     return TastingNote(
-      userNote: json['userNotes'],
+      userName: json?['userName'],
+      noseRemark: json?['noseRemark'],
+      palateRemark: json?['palateRemark'],
+      finishRemark: json?['finishRemark'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'userNotes': userNote,
+      'userName': userName,
+      'noseRemark': noseRemark,
+      'palateRemark': palateRemark,
+      'finishRemark': finishRemark,
     };
   }
 }

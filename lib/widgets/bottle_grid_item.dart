@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:whisky_app/core/theme/theme.dart';
 import 'package:whisky_app/models/bottle_model.dart';
 
@@ -34,11 +35,9 @@ class BottleGridItem extends StatelessWidget {
               Expanded(
                 child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0), // Space for image
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Image.asset(
-                      bottleItem?.imageUrl ??
-                          'assets/images/bottle.png', // Placeholder image
+                      'assets/images/bottle.png', // Placeholder image bottleItem?.imageUrl
                       fit: BoxFit.contain, // Fit bottle within the space
                     ),
                   ),
@@ -56,9 +55,10 @@ class BottleGridItem extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 '(${bottleItem?.available}/${bottleItem?.total})',
-                style: textTheme.bodySmall?.copyWith(
-                  color: AppTheme.textColor,
-                ),
+                style: GoogleFonts.lato().copyWith(
+                    color: AppTheme.subtleTextColor,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400),
                 textAlign: TextAlign.center,
               ),
             ],

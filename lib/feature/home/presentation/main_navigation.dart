@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:whisky_app/core/theme/theme.dart';
 import 'package:whisky_app/feature/home/presentation/collection_screen.dart';
-import 'package:whisky_app/feature/home/presentation/provider/collection_provider.dart';
+import 'package:whisky_app/feature/home/presentation/settings_screen.dart';
 
 class EmptyScreen extends StatelessWidget {
   final String title;
@@ -14,8 +13,7 @@ class EmptyScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
-        // automaticallyImplyLeading: false, // Remove back button if needed
-        backgroundColor: AppTheme.backgroundColor, // Match background
+        backgroundColor: AppTheme.backgroundColor,
       ),
     );
   }
@@ -40,9 +38,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     const EmptyScreen(
       title: 'Shop screen',
     ),
-    const EmptyScreen(
-      title: 'Settings screen',
-    ),
+    const SettingsScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -53,48 +49,42 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (_) => CollectionProvider()..add(LoadCollections()),
-        child: Scaffold(
-          body: _pages[_selectedIndex],
-          bottomNavigationBar: BottomNavigationBar(
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  "assets/icons/scan_icon.svg",
-                  color:
-                      _selectedIndex == 0 ? AppTheme.textColor : AppTheme.grey,
-                ),
-                label: 'Scan',
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  "assets/icons/squares_icon.svg",
-                  color:
-                      _selectedIndex == 1 ? AppTheme.textColor : AppTheme.grey,
-                ),
-                label: 'Collection',
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  "assets/icons/bottle_icon.svg",
-                  color:
-                      _selectedIndex == 2 ? AppTheme.textColor : AppTheme.grey,
-                ),
-                label: 'Shop',
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  "assets/icons/gear_icon.svg",
-                  color:
-                      _selectedIndex == 3 ? AppTheme.textColor : AppTheme.grey,
-                ),
-                label: 'Settings',
-              ),
-            ],
-            currentIndex: _selectedIndex,
-            onTap: _onItemTapped,
+    return Scaffold(
+      body: _pages[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              "assets/icons/scan_icon.svg",
+              color: _selectedIndex == 0 ? AppTheme.textColor : AppTheme.grey,
+            ),
+            label: 'Scan',
           ),
-        ));
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              "assets/icons/squares_icon.svg",
+              color: _selectedIndex == 1 ? AppTheme.textColor : AppTheme.grey,
+            ),
+            label: 'Collection',
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              "assets/icons/bottle_icon.svg",
+              color: _selectedIndex == 2 ? AppTheme.textColor : AppTheme.grey,
+            ),
+            label: 'Shop',
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              "assets/icons/gear_icon.svg",
+              color: _selectedIndex == 3 ? AppTheme.textColor : AppTheme.grey,
+            ),
+            label: 'Settings',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+      ),
+    );
   }
 }

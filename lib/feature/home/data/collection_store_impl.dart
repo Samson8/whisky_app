@@ -11,7 +11,7 @@ class CollectionStoreImpl implements CollectionStore {
       // Simulate a network call or data fetching
       await Future.delayed(Duration(seconds: 2));
       // Return a successful result
-      return Result.success(mockBottleList);
+      return Result.success(mockBottleDetails);
     } catch (e) {
       // Handle any errors and return a failure result
       return Result.failure(e.toString());
@@ -25,20 +25,6 @@ class CollectionStoreImpl implements CollectionStore {
       await Future.delayed(Duration(seconds: 1));
       // Return a successful result
       return Result.success(note);
-    } catch (e) {
-      // Handle any errors and return a failure result
-      return Result.failure(e.toString());
-    }
-  }
-
-  @override
-  Future<Result> getCollectionById(String id) async {
-    try {
-      // Simulate fetching a collection by ID
-      await Future.delayed(Duration(seconds: 1));
-      // Return a successful result
-      return Result.success(
-          mockBottleDetails.firstWhere((bottle) => bottle.id.toString() == id));
     } catch (e) {
       // Handle any errors and return a failure result
       return Result.failure(e.toString());

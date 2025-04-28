@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:whisky_app/core/theme/theme.dart';
+import 'package:whisky_app/models/bottle_model.dart';
 
 class DetailsTabContent extends StatelessWidget {
-  const DetailsTabContent({super.key});
+  final BottleModel? bottle;
+  const DetailsTabContent({super.key, this.bottle});
 
   // Helper widget for consistent row styling
   Widget _buildDetailRow(BuildContext context, String label, String value) {
@@ -28,18 +30,18 @@ class DetailsTabContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildDetailRow(context, 'Distillery', 'Text'),
-          _buildDetailRow(context, 'Region', 'Text'),
-          _buildDetailRow(context, 'Country', 'Text'),
-          _buildDetailRow(context, 'Type', 'Text'),
-          _buildDetailRow(context, 'Age statement', 'Text'),
-          _buildDetailRow(context, 'Filled', 'Text'),
-          _buildDetailRow(context, 'Bottled', 'Text'),
-          _buildDetailRow(context, 'Cask number', 'Text'),
-          _buildDetailRow(context, 'ABV', 'Text'),
-          _buildDetailRow(context, 'Size', 'Text'),
-          _buildDetailRow(context, 'Finish', 'Text'),
-          // Add more details as needed
+          _buildDetailRow(context, 'Distillery', bottle?.distillery ?? 'N/A'),
+          _buildDetailRow(context, 'Region', bottle?.region ?? 'N/A'),
+          _buildDetailRow(context, 'Country', bottle?.country ?? 'N/A'),
+          _buildDetailRow(context, 'Type', bottle?.type ?? 'N/A'),
+          _buildDetailRow(
+              context, 'Age statement', bottle?.ageStatement ?? 'N/A'),
+          _buildDetailRow(context, 'Filled', bottle?.filled ?? 'N/A'),
+          _buildDetailRow(context, 'Bottled', bottle?.bottled ?? 'N/A'),
+          _buildDetailRow(context, 'Cask number', bottle?.caskNumber ?? 'N/A'),
+          _buildDetailRow(context, 'ABV', bottle?.abv ?? 'N/A'),
+          _buildDetailRow(context, 'Size', bottle?.cask ?? 'N/A'),
+          _buildDetailRow(context, 'Finish', bottle?.finish ?? 'N/A'),
         ],
       ),
     );

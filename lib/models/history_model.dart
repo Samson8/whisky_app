@@ -1,22 +1,27 @@
 class History {
-  final String label;
-  final String title;
-  final String heading;
-  final String description;
+  final String? label;
+  final String? title;
+  final String? heading;
+  final String? description;
+  final List<String>? attachments;
 
   History({
-    required this.label,
-    required this.title,
-    required this.heading,
-    required this.description,
+    this.label,
+    this.title,
+    this.heading,
+    this.description,
+    this.attachments,
   });
 
-  factory History.fromJson(Map<String, dynamic> json) {
+  factory History.fromJson(Map<String, dynamic>? json) {
     return History(
-      label: json['label'],
-      title: json['title'],
-      heading: json['heading'],
-      description: json['description'],
+      label: json?['label'],
+      title: json?['title'],
+      heading: json?['heading'],
+      description: json?['description'],
+      attachments: (json?['attachments'] as List<dynamic>?)
+          ?.map((attachment) => attachment.toString())
+          .toList(),
     );
   }
 
@@ -26,6 +31,7 @@ class History {
       'title': title,
       'heading': heading,
       'description': description,
+      'attachments': attachments,
     };
   }
 }

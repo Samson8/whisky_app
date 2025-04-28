@@ -1,33 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:whisky_app/core/theme/theme.dart';
+import 'package:whisky_app/models/history_model.dart';
 
 class HistoryTabContent extends StatelessWidget {
-  const HistoryTabContent({super.key});
+  final List<History>? historyItems;
+  const HistoryTabContent({super.key, this.historyItems});
 
   @override
   Widget build(BuildContext context) {
-    // Placeholder data - replace with actual history/timeline data
-    final List<Map<String, dynamic>> historyItems = [
-      {
-        'label': 'Label',
-        'title': 'Title 1',
-        'description': 'Description\nDescription',
-        'attachments': 3
-      },
-      {
-        'label': 'Label',
-        'title': 'Title 2',
-        'description': 'Description\nDescription',
-        'attachments': 0
-      },
-      {
-        'label': 'Label',
-        'title': 'Title 3',
-        'description': 'Description\nDescription',
-        'attachments': 2
-      },
-    ];
-
     return Container(
       decoration: BoxDecoration(
         color: AppTheme.backgroundColor.withOpacity(0.8),
@@ -35,16 +16,16 @@ class HistoryTabContent extends StatelessWidget {
       margin: const EdgeInsets.all(16.0),
       child: ListView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
-        itemCount: historyItems.length,
+        itemCount: historyItems?.length,
         itemBuilder: (context, index) {
-          final item = historyItems[index];
+          final item = historyItems?[index];
           return HistoryTimelineItem(
-            label: item['label'],
-            title: item['title'],
-            description: item['description'],
-            attachmentCount: item['attachments'],
+            label: item?.label ?? '',
+            title: item?.title ?? '',
+            description: item?.description ?? '',
+            attachments: item?.attachments ?? [],
             isFirst: index == 0,
-            isLast: index == historyItems.length - 1,
+            isLast: index == (historyItems?.length ?? 0) - 1,
           );
         },
       ),
@@ -57,7 +38,7 @@ class HistoryTimelineItem extends StatelessWidget {
   final String label;
   final String title;
   final String description;
-  final int attachmentCount;
+  final List<String> attachments;
   final bool isFirst;
   final bool isLast;
 
@@ -66,7 +47,7 @@ class HistoryTimelineItem extends StatelessWidget {
     required this.label,
     required this.title,
     required this.description,
-    required this.attachmentCount,
+    required this.attachments,
     this.isFirst = false,
     this.isLast = false,
   });
@@ -126,18 +107,24 @@ class HistoryTimelineItem extends StatelessWidget {
                 children: [
                   Text(
                     label,
-                    // style: textTheme.caption
-                    //     ?.copyWith(color: AppTheme.primaryColor)
+                    style: GoogleFonts.lato().copyWith(
+                        color: AppTheme.subtleTextColor,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400),
                   ),
                   const SizedBox(height: 4),
                   Text(title,
                       style: textTheme.bodyLarge
                           ?.copyWith(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 4),
-                  Text(description,
-                      style: textTheme.bodyMedium
-                          ?.copyWith(color: AppTheme.subtleTextColor)),
-                  if (attachmentCount > 0) ...[
+                  Text(
+                    description,
+                    style: GoogleFonts.lato().copyWith(
+                        color: AppTheme.subtleTextColor,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  if (attachments.isNotEmpty) ...[
                     // Conditionally show attachments
                     const SizedBox(height: 12),
                     Row(
@@ -145,7 +132,13 @@ class HistoryTimelineItem extends StatelessWidget {
                         const Icon(Icons.attachment,
                             size: 16, color: AppTheme.subtleTextColor),
                         const SizedBox(width: 4),
-                        Text('Attachments', style: textTheme.bodySmall),
+                        Text(
+                          'Attachments',
+                          style: GoogleFonts.lato().copyWith(
+                              color: AppTheme.subtleTextColor,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 8),
@@ -154,7 +147,7 @@ class HistoryTimelineItem extends StatelessWidget {
                       spacing: 8.0,
                       runSpacing: 8.0,
                       children: List.generate(
-                          attachmentCount,
+                          attachments.length,
                           (i) => Container(
                                 width: 60, height: 60,
                                 color:

@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whisky_app/core/theme/theme.dart';
 import 'package:whisky_app/core/utils/bloc_resourse.dart';
 import 'package:whisky_app/feature/home/presentation/bottle_details_screen.dart';
-import 'package:whisky_app/feature/home/presentation/provider/collection_provider.dart';
-import 'package:whisky_app/feature/widgets/bottle_grid_item.dart';
+import 'package:whisky_app/feature/home/presentation/bloc/collection_bloc.dart';
+import 'package:whisky_app/widgets/bottle_grid_item.dart';
 import 'package:whisky_app/models/bottle_model.dart';
 
 class MyCollectionScreen extends StatefulWidget {
@@ -22,12 +21,18 @@ class _MyCollectionScreenState extends State<MyCollectionScreen> {
   List<BottleModel> filteredList = [];
 
   @override
+  void initState() {
+    super.initState();
+    context.read<CollectionBloc>().add(LoadCollections());
+  }
+
+  @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight:
-            100, // Make the AppBar taller to fit the search field nicely
+        // toolbarHeight:
+        //     100, // Make the AppBar taller to fit the search field nicely
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -65,59 +70,57 @@ class _MyCollectionScreenState extends State<MyCollectionScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 10),
-            CupertinoSearchTextField(
-              placeholder: "Search",
-              controller: searchController,
-              backgroundColor: AppTheme.cardBackgroundColor,
-              onSuffixTap: () {
-                searchController.clear();
-              },
-              onChanged: (query) {
-                query = query.toLowerCase();
-              },
-            ),
+            // Search field - not sure if its part of requirement
+            // const SizedBox(height: 10),
+            // CupertinoSearchTextField(
+            //   placeholder: "Search",
+            //   controller: searchController,
+            //   backgroundColor: AppTheme.cardBackgroundColor,
+            //   onSuffixTap: () {
+            //     searchController.clear();
+            //   },
+            //   onChanged: (query) {
+            //     query = query.toLowerCase();
+            //   },
+            // ),
           ],
         ),
         backgroundColor: AppTheme.backgroundColor, // Match background
       ),
-      body: BlocBuilder<CollectionProvider, AppState>(
+      body: BlocBuilder<CollectionBloc, AppState>(
         builder: (context, state) {
           if (state is AppLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is AppLoaded) {
+            final bottles = state.data;
+            if (bottles.isEmpty) {
+              return const Center(child: Text('No collections found'));
+            }
             return GridView.builder(
+              itemCount: bottles.length,
               padding: const EdgeInsets.all(16.0),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, // Number of columns
-                crossAxisSpacing: 2.0, // Horizontal space between items
-                mainAxisSpacing: 2.0, // Vertical space between items
-                childAspectRatio: 0.5, // Adjust aspect ratio (width / height)
+                crossAxisCount: 2,
+                childAspectRatio: 0.5,
               ),
-              itemCount: filteredList.isNotEmpty
-                  ? filteredList.length
-                  : state.data.length,
               itemBuilder: (context, index) {
-                final item = filteredList.isNotEmpty
-                    ? filteredList[index]
-                    : state.data[index] as BottleModel?;
+                final bottle = bottles[index];
                 return BottleGridItem(
-                  bottleItem: item!,
+                  bottleItem: bottle,
                   onTap: () {
-                    Navigator.pushNamed(context, BottleDetailScreen.routeName);
+                    Navigator.pushNamed(context, BottleDetailScreen.routeName,
+                        arguments: {
+                          'bottleId': bottle.id,
+                        });
                   },
                 );
               },
             );
           } else if (state is AppError) {
             return Center(
-              child: Text(
-                'Error: ${state.message}',
-                style: textTheme.bodyLarge,
-              ),
-            );
+                child: Text(state?.message ?? 'Error loading collections'));
           }
-          return const SizedBox.shrink(); // Fallback for other states
+          return const SizedBox.shrink();
         },
       ),
     );
