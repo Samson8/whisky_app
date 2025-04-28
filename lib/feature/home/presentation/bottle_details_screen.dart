@@ -96,6 +96,12 @@ class _BottleDetailScreenState extends State<BottleDetailScreen>
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.pop(context); // Go back to previous screen
+              },
+            ),
             title: Text(
               bottle?.distillery ?? '',
               style: GoogleFonts.lato().copyWith(

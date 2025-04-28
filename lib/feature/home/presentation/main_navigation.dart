@@ -14,7 +14,9 @@ class EmptyScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
         backgroundColor: AppTheme.plainBackgroundColor,
+        automaticallyImplyLeading: false,
       ),
+      backgroundColor: AppTheme.plainBackgroundColor,
     );
   }
 }

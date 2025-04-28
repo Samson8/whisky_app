@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whisky_app/core/theme/theme.dart';
 import 'package:whisky_app/core/utils/bloc_resourse.dart';
+import 'package:whisky_app/core/utils/snackbar.dart';
 import 'package:whisky_app/feature/home/presentation/bottle_details_screen.dart';
 import 'package:whisky_app/feature/home/presentation/bloc/collection_bloc.dart';
 import 'package:whisky_app/widgets/bottle_grid_item.dart';
@@ -31,6 +32,7 @@ class _MyCollectionScreenState extends State<MyCollectionScreen> {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         // toolbarHeight:
         //     100, // Make the AppBar taller to fit the search field nicely
         title: Column(
@@ -51,8 +53,7 @@ class _MyCollectionScreenState extends State<MyCollectionScreen> {
                     IconButton(
                       icon: const Icon(Icons.notifications_outlined),
                       onPressed: () {
-                        // TODO: Implement notification action
-                        print('Notifications Tapped');
+                        showSnackbar(context, 'Notifications Tapped');
                       },
                     ),
                     Positioned(
@@ -85,8 +86,10 @@ class _MyCollectionScreenState extends State<MyCollectionScreen> {
             // ),
           ],
         ),
+        surfaceTintColor: AppTheme.plainBackgroundColor,
         backgroundColor: AppTheme.plainBackgroundColor, // Match background
       ),
+      backgroundColor: AppTheme.plainBackgroundColor,
       body: BlocBuilder<CollectionBloc, AppState>(
         builder: (context, state) {
           if (state is AppLoading) {

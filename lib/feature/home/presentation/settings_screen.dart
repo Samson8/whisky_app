@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whisky_app/core/theme/theme.dart';
+import 'package:whisky_app/core/utils/snackbar.dart';
 import 'package:whisky_app/feature/home/presentation/bloc/collection_bloc.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -17,7 +18,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
+        automaticallyImplyLeading: false,
+        backgroundColor: AppTheme.plainBackgroundColor,
       ),
+      backgroundColor: AppTheme.plainBackgroundColor,
       body: Column(
         children: [
           FutureBuilder<bool>(
@@ -39,7 +43,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       style: textTheme.bodyLarge,
                     ),
                     subtitle: Text(
-                      "Set ${isOfflineMode ? 'offline' : 'online'} mode",
+                      "${isOfflineMode ? 'Disable' : 'Enable'} offline mode",
                       style: textTheme.bodySmall,
                     ),
                     trailing: Switch(
@@ -50,6 +54,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             .read<CollectionBloc>()
                             .toggleOfflineState(value);
                         setState(() {}); // Rebuild to update the FutureBuilder
+                        showSnackbar(
+                            context,
+                            value
+                                ? 'Offline mode enabled'
+                                : 'Offline mode disabled');
                       },
                     ));
               }

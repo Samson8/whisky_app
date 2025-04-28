@@ -8,11 +8,6 @@ class CollectionRepositoryImp implements CollectionRepository {
 
   @override
   Future<Result> getList() async {
-    try {
-      final response = await collectionStore.getList();
-      return response;
-    } catch (e) {
-      return Result.failure(e.toString());
-    }
+    return await collectionStore.getList();
   }
 }
